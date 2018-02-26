@@ -1,4 +1,4 @@
-# Update translations script
+# Bundle update script
 
 This script runs inside a docker container to create a pull request for new gem updates from rubygems.
 
