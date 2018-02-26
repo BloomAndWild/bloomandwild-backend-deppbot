@@ -6,6 +6,7 @@ services:
     container_name: bundle-update
     environment:
       - GITHUB_TOKEN
+      - BUNDLE_GITHUB__COM
     volumes:
       - ${SSH_KEY_FILE}:/root/.ssh/id_rsa
       - ${WORKSPACE}:/usr/src/docker
