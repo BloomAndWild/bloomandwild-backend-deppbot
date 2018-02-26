@@ -1,0 +1,37 @@
+#!/bin/sh
+set -euxo pipefail
+
+cp -R /usr/src/docker /tmp/docker
+cd /tmp/docker
+
+chmod 600 /root/.ssh/id_rsa
+
+# add Github to known hosts
+ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
+
+# shallow clone backend project
+
+git clone --depth 1 git@github.com:BloomAndWild/bloomandwild.git
+
+cd /tmp/docker/bloomandwild
+
+if git branch | grep -q "* staging"; then
+  echo "We're on staging branch, happy days."
+else
+  echo "Switching to staging branch"
+  git checkout staging
+fi
+
+# check git user settings
+if git config --get user.name; then
+  echo "git username already set"
+else
+  echo "Setting git email/username"
+  git config user.email "dev+jenkins@bloomandwild.com"
+  git config user.name "Jenkins"
+fi
+
+bundle update -j4
+
+sh ../bin/teardown
+

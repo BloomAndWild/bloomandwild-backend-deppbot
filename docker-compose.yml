@@ -1,0 +1,12 @@
+version: '3'
+services:
+  bundle-update:
+    build:
+      context: .
+    container_name: bundle-update
+    environment:
+      - GITHUB_TOKEN
+    volumes:
+      - ${SSH_KEY_FILE}:/root/.ssh/id_rsa
+      - ${WORKSPACE}:/usr/src/docker
+    command: "./usr/src/docker/bin/setup"

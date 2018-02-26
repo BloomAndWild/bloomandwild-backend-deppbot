@@ -1,0 +1,21 @@
+#!/bin/sh
+
+timestamp=$(date +"%Y-%m-%d-%H%M")
+branch="feature/bundle-update-$timestamp"
+
+git status
+
+# create PR for translations if necessary
+if git status | grep -q "modified:   Gemfile"; then
+  echo "Creating PR"
+  git checkout -b $branch
+  git add config/locales/*
+  git commit -m "Bundle update $timestamp"
+  git push origin $branch
+  hub pull-request -b staging -m "Bundle update $timestamp"
+else
+  echo "no file changes"
+fi
+
+# clean up
+rm -rf /tmp/docker/bloomandwild
