@@ -31,8 +31,9 @@ else
   git config user.name "Jenkins"
 fi
 
-rm Gemfile.lock
-bundle lock
+gem install bundler # Update bundler
+
+rm Gemfile.lock && bundle lock # Recreate lockfile
 
 sh ../bin/teardown
 
