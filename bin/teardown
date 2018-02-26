@@ -6,10 +6,10 @@ branch="feature/bundle-update-$timestamp"
 git status
 
 # create PR for translations if necessary
-if git status | grep -q "modified:   Gemfile"; then
+if git status | grep -q "modified:   Gemfile.lock"; then
   echo "Creating PR"
   git checkout -b $branch
-  git add config/locales/*
+  git add Gemfile.lock
   git commit -m "Bundle update $timestamp"
   git push origin $branch
   hub pull-request -b staging -m "Bundle update $timestamp"
