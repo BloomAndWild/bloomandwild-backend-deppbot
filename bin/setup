@@ -31,7 +31,8 @@ else
   git config user.name "Jenkins"
 fi
 
-bundle update -j4
+rm Gemfile.lock
+bundle lock
 
 sh ../bin/teardown
 
