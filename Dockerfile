@@ -1,4 +1,4 @@
-FROM ruby:2.5.1-alpine
+FROM ruby:2.6.0-alpine
 
 # Install dependencies
 RUN apk add --update git openssh-client
